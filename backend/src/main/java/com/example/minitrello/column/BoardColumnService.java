@@ -31,7 +31,7 @@ public class BoardColumnService {
         int position = (int) boardColumnRepository.countByBoardId(boardId);
         BoardColumn boardColumn = new BoardColumn(request.name(), board, position);
         BoardColumn saved = boardColumnRepository.save(boardColumn);
-        return boardColumnMapper.toColumnResponse(saved);
+        return boardColumnMapper.toResponse(saved);
     }
 
     @Transactional
@@ -42,7 +42,7 @@ public class BoardColumnService {
             throw new ConflictException("Une colonne nommée '" + request.name() + "' existe déjà dans ce tableau");
         }
         boardColumn.setName(request.name());
-        return boardColumnMapper.toColumnResponse(boardColumn);
+        return boardColumnMapper.toResponse(boardColumn);
     }
 
     @Transactional

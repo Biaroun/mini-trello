@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BoardColumnMapper {
 
-    public ColumnResponse toColumnResponse(BoardColumn boardcolumn) {
+    public ColumnResponse toResponse(BoardColumn boardcolumn) {
         return new ColumnResponse(
                 boardcolumn.getId(),
                 boardcolumn.getName(),
