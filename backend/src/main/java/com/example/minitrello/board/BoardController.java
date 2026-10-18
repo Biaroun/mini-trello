@@ -1,4 +1,5 @@
 package com.example.minitrello.board;
+import com.example.minitrello.board.dto.BoardDetailResponse;
 import com.example.minitrello.board.dto.BoardResponse;
 import com.example.minitrello.board.dto.CreateBoardRequest;
 import com.example.minitrello.board.dto.UpdateBoardRequest;
@@ -23,7 +24,7 @@ public class BoardController {
     }
 
     @GetMapping("{id}")
-    public BoardResponse findById(@PathVariable Long id) {
+    public BoardDetailResponse findById(@PathVariable Long id) {
         return boardService.findById(id);
     }
 

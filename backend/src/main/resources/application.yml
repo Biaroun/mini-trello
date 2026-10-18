@@ -19,3 +19,7 @@ spring:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
+app:
+  cors:
+    allowed-origins: http://localhost:4200
