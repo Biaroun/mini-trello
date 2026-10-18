@@ -1,1 +1,24 @@
-<p>card works!</p>
+<article class="card">
+  <div class="card-top">
+    <span class="badge" [class]="'badge priority-' + card().priority.toLowerCase()">{{ priorityLabel() }}</span>
+    <div class="card-actions">
+      <button type="button" class="icon-btn" (click)="edit.emit()" aria-label="Modifier la carte">✎</button>
+      <button type="button" class="icon-btn" (click)="remove.emit()" aria-label="Supprimer la carte">✕</button>
+    </div>
+  </div>
+
+  <h3 class="card-title">{{ card().title }}</h3>
+
+  @if (card().description) {
+    <p class="card-description">{{ card().description }}</p>
+  }
+
+  @if (card().dueDate) {
+    <p class="card-due" [class.overdue]="overdue()">
+      <span aria-hidden="true">📅</span> {{ card().dueDate | date: 'dd/MM/yyyy' }}
+      @if (overdue()) {
+        <span class="overdue-label">en retard</span>
+      }
+    </p>
+  }
+</article>

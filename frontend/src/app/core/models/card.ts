@@ -1,5 +1,12 @@
-
 export type Priority = 'LOW' | 'MEDIUM' | 'HIGH';
+
+export const PRIORITIES: Priority[] = ['LOW', 'MEDIUM', 'HIGH'];
+
+export const PRIORITY_LABELS: Record<Priority, string> = {
+  LOW: 'Basse',
+  MEDIUM: 'Moyenne',
+  HIGH: 'Haute',
+};
 
 export interface Card {
   id: number;

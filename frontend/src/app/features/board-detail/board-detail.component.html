@@ -1,1 +1,66 @@
-<p>board-detail works!</p>
+<section class="board-page">
+  @if (error(); as message) {
+    <p class="alert" role="alert">{{ message }}</p>
+  }
+
+  @if (board(); as board) {
+    <header class="board-header">
+      <a class="back-link" routerLink="/boards">← Mes tableaux</a>
+
+      @if (editingTitle()) {
+        <input
+          class="title-input"
+          type="text"
+          [formControl]="titleControl"
+          aria-label="Nouveau nom du tableau"
+          maxlength="100"
+          (keydown.enter)="saveTitle(board)"
+          (keydown.escape)="editingTitle.set(false)"
+          (blur)="saveTitle(board)"
+        />
+      } @else {
+        <h1 class="board-title" (dblclick)="startEditTitle(board)" title="Double-clic pour renommer">
+          {{ board.name }}
+        </h1>
+        <button type="button" class="btn btn-ghost" (click)="startEditTitle(board)">Renommer</button>
+        <button type="button" class="btn btn-ghost danger" (click)="removeBoard(board)">Supprimer</button>
+      }
+    </header>
+
+    <div class="board-canvas" cdkDropListGroup>
+      @for (column of board.columns; track column.id) {
+        <app-column
+          [column]="column"
+          (renamed)="renameColumn(column.id, $event)"
+          (removed)="removeColumn(column.id, column.name)"
+          (addCard)="openCreateDialog(column.id)"
+          (editCard)="openEditDialog($event)"
+          (removeCard)="removeCard($event)"
+          (cardDropped)="moveCard($event)"
+        />
+      }
+
+      <form class="add-column" [formGroup]="columnForm" (ngSubmit)="addColumn()">
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Nom de la nouvelle colonne"
+          aria-label="Nom de la nouvelle colonne"
+          maxlength="50"
+        />
+        <button type="submit" class="btn btn-primary">Ajouter une colonne</button>
+      </form>
+    </div>
+
+    @if (dialog(); as state) {
+      <app-card-dialog
+        [card]="state.card"
+        [errorMessage]="dialogError()"
+        (saved)="saveCard(state, $event)"
+        (cancelled)="closeDialog()"
+      />
+    }
+  } @else if (!error()) {
+    <p class="loading">Chargement…</p>
+  }
+</section>

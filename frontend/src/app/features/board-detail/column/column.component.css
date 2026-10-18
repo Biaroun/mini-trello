@@ -1,0 +1,92 @@
+:host {
+  display: block;
+  flex: 0 0 280px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 100%;
+  padding: 10px;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+}
+
+.column-name {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  cursor: text;
+}
+
+.count {
+  padding: 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--surface);
+  border-radius: 10px;
+}
+
+.name-input {
+  font-weight: 700;
+}
+
+.column-actions {
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.column:hover .column-actions,
+.column:focus-within .column-actions {
+  opacity: 1;
+}
+
+.icon-btn {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
+}
+
+.icon-btn:hover {
+  color: var(--text);
+  background: var(--border);
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 40px;
+  overflow-y: auto;
+}
+
+.add-card {
+  justify-content: flex-start;
+  width: 100%;
+}
+
+@media (hover: none) {
+  .column-actions {
+    opacity: 1;
+  }
+}

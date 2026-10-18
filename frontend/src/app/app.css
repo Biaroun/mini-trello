@@ -1,0 +1,15 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 16px;
+  color: #fff;
+  background: #0c66e4;
+  box-shadow: var(--shadow);
+}
+
+.app-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}

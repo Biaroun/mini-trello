@@ -1,1 +1,51 @@
-<p>card-dialog works!</p>
+<div class="backdrop" (click)="cancelled.emit()">
+  <form
+    class="dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="card-dialog-title"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    (click)="$event.stopPropagation()"
+  >
+    <h2 id="card-dialog-title">{{ isEdit() ? 'Modifier la carte' : 'Nouvelle carte' }}</h2>
+
+    <div class="field">
+      <label for="card-title">Titre</label>
+      <input id="card-title" #titleInput type="text" formControlName="title" maxlength="100" />
+      @if (form.controls.title.touched && form.controls.title.invalid) {
+        <p class="field-error">Le titre est obligatoire (100 caractères maximum).</p>
+      }
+    </div>
+
+    <div class="field">
+      <label for="card-description">Description</label>
+      <textarea id="card-description" rows="4" formControlName="description" maxlength="1000"></textarea>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="card-priority">Priorité</label>
+        <select id="card-priority" formControlName="priority">
+          @for (priority of priorities; track priority) {
+            <option [value]="priority">{{ priorityLabels[priority] }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="card-due">Échéance</label>
+        <input id="card-due" type="date" formControlName="dueDate" [attr.min]="isEdit() ? null : today" />
+      </div>
+    </div>
+
+    @if (errorMessage(); as message) {
+      <p class="alert" role="alert">{{ message }}</p>
+    }
+
+    <div class="actions">
+      <button type="button" class="btn btn-ghost" (click)="cancelled.emit()">Annuler</button>
+      <button type="submit" class="btn btn-primary">{{ isEdit() ? 'Enregistrer' : 'Créer' }}</button>
+    </div>
+  </form>
+</div>

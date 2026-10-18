@@ -1,0 +1,59 @@
+.board-page {
+  padding: 16px;
+}
+
+.board-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.back-link {
+  font-size: 14px;
+  color: var(--primary);
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.board-title {
+  font-size: 22px;
+  cursor: text;
+  overflow-wrap: anywhere;
+}
+
+.title-input {
+  max-width: 360px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.danger:hover {
+  color: var(--danger);
+}
+
+.board-canvas {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 16px;
+  overflow-x: auto;
+}
+
+.add-column {
+  display: flex;
+  flex: 0 0 280px;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  background: var(--surface-muted);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+
+.loading {
+  color: var(--text-muted);
+}

@@ -1,1 +1,54 @@
-<p>board-list works!</p>
+<section class="page">
+  <header class="page-header">
+    <h1>Mes tableaux</h1>
+  </header>
+
+  <form class="create-form" [formGroup]="createForm" (ngSubmit)="create()">
+    <input
+      type="text"
+      formControlName="name"
+      placeholder="Nom du nouveau tableau"
+      aria-label="Nom du nouveau tableau"
+      maxlength="100"
+    />
+    <button type="submit" class="btn btn-primary">Créer</button>
+  </form>
+
+  @if (error(); as message) {
+    <p class="alert" role="alert">{{ message }}</p>
+  }
+
+  <ul class="board-grid">
+    @for (board of boards(); track board.id) {
+      <li class="board-tile">
+        @if (editingId() === board.id) {
+          <div class="board-edit">
+            <input
+              type="text"
+              [formControl]="editControl"
+              aria-label="Nouveau nom du tableau"
+              maxlength="100"
+              (keydown.enter)="saveEdit(board)"
+              (keydown.escape)="cancelEdit()"
+            />
+            <div class="board-edit-actions">
+              <button type="button" class="btn btn-primary" (click)="saveEdit(board)">Enregistrer</button>
+              <button type="button" class="btn btn-ghost" (click)="cancelEdit()">Annuler</button>
+            </div>
+          </div>
+        } @else {
+          <a class="board-link" [routerLink]="['/boards', board.id]">
+            <span class="board-name">{{ board.name }}</span>
+            <span class="board-date">Créé le {{ board.createdAt | date: 'dd/MM/yyyy' }}</span>
+          </a>
+          <div class="board-actions">
+            <button type="button" class="icon-btn" (click)="startEdit(board)" aria-label="Renommer le tableau">✎</button>
+            <button type="button" class="icon-btn" (click)="remove(board)" aria-label="Supprimer le tableau">✕</button>
+          </div>
+        }
+      </li>
+    } @empty {
+      <li class="empty">Aucun tableau pour l'instant. Créez le premier ci-dessus.</li>
+    }
+  </ul>
+</section>

@@ -1,1 +1,42 @@
-<p>column works!</p>
+<section class="column">
+  <header class="column-header">
+    @if (editing()) {
+      <input
+        class="name-input"
+        type="text"
+        [formControl]="nameControl"
+        aria-label="Nouveau nom de la colonne"
+        maxlength="50"
+        (keydown.enter)="saveEdit()"
+        (keydown.escape)="cancelEdit()"
+        (blur)="saveEdit()"
+      />
+    } @else {
+      <h2 class="column-name" (dblclick)="startEdit()" title="Double-clic pour renommer">{{ column().name }}</h2>
+      <span class="count">{{ column().cards.length }}</span>
+      <div class="column-actions">
+        <button type="button" class="icon-btn" (click)="startEdit()" aria-label="Renommer la colonne">✎</button>
+        <button type="button" class="icon-btn" (click)="removed.emit()" aria-label="Supprimer la colonne">✕</button>
+      </div>
+    }
+  </header>
+
+  <div
+    class="card-list"
+    cdkDropList
+    [cdkDropListData]="column().id"
+    (cdkDropListDropped)="cardDropped.emit($event)"
+  >
+    @for (card of column().cards; track card.id) {
+      <app-card
+        cdkDrag
+        [cdkDragData]="card"
+        [card]="card"
+        (edit)="editCard.emit(card)"
+        (remove)="removeCard.emit(card)"
+      />
+    }
+  </div>
+
+  <button type="button" class="btn btn-ghost add-card" (click)="addCard.emit()">+ Ajouter une carte</button>
+</section>
